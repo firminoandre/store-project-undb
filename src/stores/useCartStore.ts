@@ -21,11 +21,9 @@ import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 
 export const useCartStore = defineStore('cart', () => {
-  // State
   const items = ref<CartItem[]>([]);
   const isCartVisible = ref(false);
 
-  // Getters
   const totalItems = computed(() => {
     return items.value.reduce((total, item) => total + item.quantity, 0);
   });
@@ -36,7 +34,6 @@ export const useCartStore = defineStore('cart', () => {
 
   const cartIsEmpty = computed(() => items.value.length === 0);
 
-  // Actions
   function addItem(product: Product, quantity: number = 1) {
     const existingItem = items.value.find(item => item.id === product.id);
 
@@ -48,7 +45,6 @@ export const useCartStore = defineStore('cart', () => {
         quantity
       });
     }
-    // Opcional: abrir o carrinho automaticamente quando um item é adicionado
     showCart();
   }
 
@@ -75,7 +71,6 @@ export const useCartStore = defineStore('cart', () => {
     items.value = [];
   }
 
-  // Métodos para controlar a visibilidade do carrinho
   function showCart() {
     isCartVisible.value = true;
   }
@@ -89,16 +84,11 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   return {
-    // State
     items,
     isCartVisible,
-    
-    // Getters
     totalItems,
     totalAmount,
     cartIsEmpty,
-    
-    // Actions
     addItem,
     removeItem,
     updateQuantity,

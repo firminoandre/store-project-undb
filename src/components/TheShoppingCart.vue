@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { useCartStore } from '@/stores/useCartStore';
 import TheButton from './TheButton.vue';
+import { useRouter } from 'vue-router';
 
 const cartStore = useCartStore();
+const router = useRouter()
+
+const handleNavigationToHome = () => {
+    router.push({name: 'products'})
+    cartStore.toggleCart()
+}
 </script>
 <template>
     <div class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
@@ -71,17 +78,17 @@ const cartStore = useCartStore();
                 <p>Total</p>
                 <p>R$ {{ cartStore.totalAmount }}</p>
               </div>
-              <p class="mt-0.5 text-sm text-gray-500">As taxas de entrega nao estao inclusas.</p>
+              <p class="mt-0.5 text-sm text-gray-500">A taxa de entrega nao está inclusa.</p>
               <div class="mt-6">
                 <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Ir para o pagamento</a>
               </div>
               <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
                 <p>
                   ou
-                  <RouterLink :to="{ name: 'products' }" type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
+                  <a @click="handleNavigationToHome()"  type="button" class="cursor-pointer font-medium text-indigo-600 hover:text-indigo-500">
                     Continuar comprando
                     <span aria-hidden="true"> &rarr;</span>
-                  </RouterLink>
+                  </a>
                 </p>
               </div>
             </div>

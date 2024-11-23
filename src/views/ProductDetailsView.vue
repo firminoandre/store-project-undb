@@ -3,7 +3,7 @@ import TheButton from '@/components/TheButton.vue';
 import apiService from '@/services/useApi';
 import ProgressSpinner from 'primevue/progressspinner';
 import { computed, onBeforeMount, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import TheBreadcrumb from '@/components/TheBreadcrumb.vue';
 import { useCartStore } from '@/stores/useCartStore';
 
@@ -25,6 +25,7 @@ interface ProductDetailsDTO {
 }
 
 const route = useRoute()
+const router = useRouter()
 
 const productData = ref<ProductDetailsDTO | null>(null)
 const loadingProduct = ref(false)
@@ -45,6 +46,8 @@ const fetchData = async () => {
 
     if (response) {
       productData.value = response as ProductDetailsDTO
+    } else {
+        router.push({name: 'notFound'})
     }
   } catch (error: unknown) {
     console.log(error)

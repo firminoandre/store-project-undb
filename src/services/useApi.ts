@@ -6,26 +6,24 @@ class ApiService {
   constructor(baseURL: string) {
     this.apiClient = axios.create({
       baseURL,
-      timeout: 10000, // Tempo limite de 10 segundos
+      timeout: 10000,
       headers: {
         "Content-Type": "application/json",
       },
     });
   }
 
-  // Método GET
-  async get<T>(endpoint: string, params: Record<string, any> = {}): Promise<T> {
+  async get<T>(endpoint: string, params: Record<string, unknown> = {}): Promise<T> {
     try {
       const response: AxiosResponse<T> = await this.apiClient.get(endpoint, { params });
       return response.data;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(`GET ${endpoint} failed`, error);
-      throw new Error(error.response?.data?.message || "Erro ao carregar dados");
+      throw new Error(error as string  || "Erro ao carregar dados");
     }
   }
 }
 
-// Exporta uma instância do ApiService com uma URL base padrão
 const apiService = new ApiService("https://fakestoreapi.com");
 
 export default apiService;
