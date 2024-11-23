@@ -4,6 +4,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config';
 import 'primeicons/primeicons.css'
+// @ts-expect-error fast fix
 import CadidatatuPreset from './presets/candidatatu'
 
 import App from './App.vue'
