@@ -23,6 +23,7 @@ import { ref, computed } from 'vue';
 export const useCartStore = defineStore('cart', () => {
   const items = ref<CartItem[]>([]);
   const isCartVisible = ref(false);
+  const userLogged = ref(false)
 
   const totalItems = computed(() => {
     return items.value.reduce((total, item) => total + item.quantity, 0);
@@ -83,6 +84,10 @@ export const useCartStore = defineStore('cart', () => {
     isCartVisible.value = !isCartVisible.value;
   }
 
+  function setUserLogged() {
+    userLogged.value = true
+  }
+
   return {
     items,
     isCartVisible,
@@ -95,6 +100,8 @@ export const useCartStore = defineStore('cart', () => {
     clearCart,
     showCart,
     hideCart,
-    toggleCart
+    toggleCart,
+    setUserLogged,
+    userLogged
   };
 });
